@@ -12,7 +12,6 @@ class MathQuiz:
         operation = random.choice(operations)
         if operation == '/':
             correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
-            print("correct:", correct_answer)
             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
         else:
             correct_answer = eval(f"{num1} {operation} {num2}")
