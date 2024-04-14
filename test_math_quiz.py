@@ -1,0 +1,61 @@
+from unittest.mock import patch
+import pytest
+from math_quiz import MathQuiz
+
+
+# produce o intrebare si un raspuns corect
+def test_generate_question():
+    quiz = MathQuiz()
+    question, answer = quiz.generate_question()
+    assert "What is" in question
+    assert isinstance(answer, (int, float))
+
+
+@patch('builtins.print')
+@patch('builtins.input', return_value='4')
+def test_mocked_input_output(mock_input, mock_print):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 2 + 2?", 4)
+    mock_print.assert_called_with("Correct!")
+
+
+# Test pentru verificarea unui răspuns corect
+@patch('builtins.input', return_value='3')
+@patch('builtins.print')
+def test_ask_question_correct(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 1 + 2?", 3.0)
+    mock_print.assert_called_with("Correct!")
+    assert quiz.score == 1
+
+
+# Test pentru verificarea unui răspuns incorect
+@patch('builtins.input', return_value='4')
+@patch('builtins.print')
+def test_ask_question_incorrect(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 1 + 2?", 3.0)
+    mock_print.assert_called_with("Wrong! The correct answer was 3.0")
+    assert quiz.score == 0
+
+
+# Test pentru rularea completă a quiz-ului
+@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])  # Simulăm răspunsuri corecte
+@patch('builtins.print')
+def test_run_quiz(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 5
+    mock_print.assert_any_call("Quiz completed! Your score: 5/5 (Passed)")
+    mock_print.assert_any_call("Perfect score, well done!")
+
+
+# Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
+@patch('builtins.input', side_effect=['wrong', 'wrong', 'wrong', 'wrong', 'wrong'])
+@patch('builtins.print')
+def test_run_quiz_premature_stop(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 0
+    mock_print.assert_any_call("Can't reach passing score anymore.")
+    mock_print.assert_any_call("Quiz completed! Your score: 0/5 (Failed)")
