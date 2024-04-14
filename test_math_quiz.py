@@ -59,3 +59,48 @@ def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input)
     assert quiz.score == 0
     mock_print.assert_any_call("Can't reach passing score anymore.")
     mock_print.assert_any_call("Quiz completed! Your score: 0/5 (Failed)")
+
+def test_initial_score():
+    quiz = MathQuiz()
+    assert quiz.score == 0
+
+def test_generate_question_structure():
+    quiz = MathQuiz()
+    question, answer = quiz.generate_question()
+    assert isinstance(question, str)
+    assert isinstance(answer, (int, float))
+
+@patch('builtins.input', return_value='3')
+def test_ask_question_increments_score(mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 1 + 2?", 3.0)
+    assert quiz.score == 1
+
+@patch('builtins.input', return_value='4')
+def test_ask_question_does_not_increment_score(mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 1 + 2?", 3.0)
+    assert quiz.score == 0
+
+@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 3?", 5.0))
+def test_run_quiz_increments_score(mock_generate_question, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 5
+
+@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+def test_run_quiz_does_not_increment_score(mock_generate_question, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 0
+
+@patch('builtins.input', side_effect=['4', '4', '4', '5', '5'])
+@patch('builtins.print')
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+def test_run_quiz_partial_score(mock_generate_question, mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 3
+    mock_print.assert_any_call("Good job, but you can do better!")
