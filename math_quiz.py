@@ -15,18 +15,12 @@ class MathQuiz:
         return question, correct_answer
 
     def ask_question(self, question, correct_answer):
-        while True:
-            try:
-                user_answer = float(input(question + " "))
-                break
-            except ValueError:
-                print("Please enter a valid number.")
-
-        if user_answer == correct_answer:
-            print("Correct!")
+        answer = float(input(question))
+        if answer == correct_answer:
             self.score += 1
+            return True
         else:
-            print(f"Wrong! The correct answer was {correct_answer}.")
+            return False
 
     def run_quiz(self, num_questions=5):
         i = 0
