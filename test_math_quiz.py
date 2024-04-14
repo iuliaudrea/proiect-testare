@@ -95,3 +95,12 @@ def test_run_quiz_does_not_increment_score(mock_generate_question, mock_input):
     quiz = MathQuiz()
     quiz.run_quiz(5)
     assert quiz.score == 0
+
+@patch('builtins.input', side_effect=['4', '4', '4', '5', '5'])
+@patch('builtins.print')
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+def test_run_quiz_partial_score(mock_generate_question, mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 3
+    mock_print.assert_any_call("Good job, but you can do better!")
