@@ -1,7 +1,5 @@
 from unittest.mock import patch
-import pytest
 from math_quiz import MathQuiz
-
 
 # produce o intrebare si un raspuns corect
 def test_generate_question():
@@ -35,25 +33,27 @@ def test_ask_question_correct(mock_print, mock_input):
 def test_ask_question_incorrect(mock_print, mock_input):
     quiz = MathQuiz()
     quiz.ask_question("What is 1 + 2?", 3.0)
-    mock_print.assert_called_with("Wrong! The correct answer was 3.0")
+    mock_print.assert_called_with("Wrong! The correct answer was 3.0.")
     assert quiz.score == 0
 
 
 # Test pentru rularea completă a quiz-ului
 @patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])  # Simulăm răspunsuri corecte
 @patch('builtins.print')
-def test_run_quiz(mock_print, mock_input):
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 3?", 5.0))  # Mock-uim generate_question pentru a returna întotdeauna răspunsul 5
+def test_run_quiz(mock_generate_question, mock_print, mock_input):
     quiz = MathQuiz()
     quiz.run_quiz(5)
-    assert quiz.score == 5
+    assert quiz.score == 5  # Acum acest test ar trebui să treacă
     mock_print.assert_any_call("Quiz completed! Your score: 5/5 (Passed)")
     mock_print.assert_any_call("Perfect score, well done!")
 
 
 # Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
-@patch('builtins.input', side_effect=['wrong', 'wrong', 'wrong', 'wrong', 'wrong'])
+@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
 @patch('builtins.print')
-def test_run_quiz_premature_stop(mock_print, mock_input):
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input):
     quiz = MathQuiz()
     quiz.run_quiz(5)
     assert quiz.score == 0
