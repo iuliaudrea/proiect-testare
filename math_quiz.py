@@ -1,5 +1,5 @@
 import random
-
+import math
 
 class MathQuiz:
     def __init__(self):
@@ -10,8 +10,13 @@ class MathQuiz:
         num1 = random.randint(1, 10)
         num2 = random.randint(1, 10)
         operation = random.choice(operations)
-        question = f"What is {num1} {operation} {num2}?"
-        correct_answer = eval(f"{num1} {operation} {num2}")
+        if operation == '/':
+            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
+            print("correct:", correct_answer)
+            question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+        else:
+            correct_answer = eval(f"{num1} {operation} {num2}")
+            question = f"What is {num1} {operation} {num2}?"
         return question, correct_answer
 
     def ask_question(self, question, correct_answer):
@@ -30,14 +35,18 @@ class MathQuiz:
 
     def run_quiz(self, num_questions=5):
         i = 0
-        max_score = num_questions
-        while i < num_questions and self.score + (num_questions - i) >= max_score / 2:
+        max_wrong_answers = num_questions // 2 + 1  # Jumătate din numărul total de întrebări plus unul
+        num_wrong_answers = 0  # Contor pentru numărul de răspunsuri greșite
+        while i < num_questions:
             question, correct_answer = self.generate_question()
             self.ask_question(question, correct_answer)
             i += 1
-            if self.score < i / 2:  # O altă condiție: dacă scorul curent este sub jumătatea întrebărilor puse
-                print("Can't reach passing score anymore.")
-                break
+            # Verificăm dacă jucătorul a răspuns suficient de multe întrebări greșit
+            if self.score < i / 2:
+                num_wrong_answers += 1
+                if num_wrong_answers >= max_wrong_answers:
+                    print("Can't reach passing score anymore.")
+                    break
 
         # Un `if-else` lanț pentru a oferi feedback bazat pe scorul final.
         if self.score >= num_questions / 2:
