@@ -23,6 +23,7 @@ class MathQuiz:
         while True:
             try:
                 user_answer = float(input(question + " "))
+                user_answer = math.floor(user_answer * 100) / 100
                 break
             except ValueError:
                 print("Please enter a valid number.")
@@ -60,7 +61,7 @@ class MathQuiz:
         else:
             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
 
-        if self.score > 0 and self.score < num_questions:
+        if self.score > 0 and self.score < num_questions and num_wrong_answers < max_wrong_answers:
             print("Good job, but you can do better!")
         elif self.score == num_questions:
             print("Perfect score, well done!")
