@@ -1,12 +1,25 @@
 from unittest.mock import patch
 from math_quiz import MathQuiz
+import pytest
 
-# produce o intrebare si un raspuns corect
+# Produce o intrebare si un raspuns valid
 def test_generate_question():
     quiz = MathQuiz()
     question, answer = quiz.generate_question()
     assert "What is" in question
     assert isinstance(answer, (int, float))
+
+
+# Se verifica daca numarul de intrebari este valid conform specificatiei (inrte 1 si 10)
+def test_run_quiz_with_invalid_number_of_questions():
+    quiz = MathQuiz()
+    with pytest.raises(ValueError) as excinfo:
+        quiz.run_quiz(0)  # Valoare invalidă, mai mică decât 1
+    assert "Number of questions must be between 1 and 10." in str(excinfo.value)
+
+    with pytest.raises(ValueError) as excinfo:
+        quiz.run_quiz(11)  # Valoare invalidă, mai mare decât 10
+    assert "Number of questions must be between 1 and 10." in str(excinfo.value)
 
 
 @patch('builtins.print')

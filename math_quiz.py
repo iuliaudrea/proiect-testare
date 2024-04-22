@@ -33,15 +33,21 @@ class MathQuiz:
             print(f"Wrong! The correct answer was {correct_answer}.")
 
     def run_quiz(self, num_questions=5):
+        # resetam scorul la inceputul fiecarui quiz, intruct se poate rula de mai multe ori pentru aceeasi instanta a clasei
+        self.score = 0
         i = 0
-        max_wrong_answers = num_questions // 2 + 1  # Jumătate din numărul total de întrebări plus unul
-        num_wrong_answers = 0  # Contor pentru numărul de răspunsuri greșite
+        num_wrong_answers = 0
+        max_wrong_answers = num_questions // 2 + 1
+
+        if not 1 <= num_questions <= 10:
+            raise ValueError("Number of questions must be between 1 and 10.")
+
         while i < num_questions:
             question, correct_answer = self.generate_question()
             self.ask_question(question, correct_answer)
             i += 1
             # Verificăm dacă jucătorul a răspuns suficient de multe întrebări greșit
-            if self.score < i / 2:
+            if self.score < (i - num_wrong_answers):
                 num_wrong_answers += 1
                 if num_wrong_answers >= max_wrong_answers:
                     print("Can't reach passing score anymore.")
@@ -53,7 +59,6 @@ class MathQuiz:
         else:
             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
 
-        # If cu două condiții.
         if self.score > 0 and self.score < num_questions:
             print("Good job, but you can do better!")
         elif self.score == num_questions:
