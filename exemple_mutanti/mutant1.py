@@ -38,7 +38,7 @@ class MathQuiz:
         self.score = 0
         i = 0
         num_wrong_answers = 0
-        max_wrong_answers = num_questions // 2 + 1
+        max_wrong_answers = num_questions // 3 + 1
 
         if not 1 <= num_questions <= 10:
             raise ValueError("Number of questions must be between 1 and 10.")

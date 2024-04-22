@@ -1,0 +1,133 @@
+<html><body><h1>./tests/test_math_quiz.py</h1>Killed 146 out of 158 mutants<h2>Timeouts</h2>Mutants that made the test suite take a lot longer so the tests were killed.<h3>Mutant 129</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -47,7 +47,7 @@
+ 
+ 
+ # Test pentru verificarea unui răspuns incorect
+-@patch('builtins.input', return_value='4')
++@patch('builtins.input', return_value='XX4XX')
+ @patch('builtins.print')
+ def test_ask_question_incorrect(mock_print, mock_input):
+     quiz = MathQuiz()
+</pre><h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 90</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -6,7 +6,7 @@
+ def test_generate_question():
+     quiz = MathQuiz()
+     question, answer = quiz.generate_question()
+-    assert "What is" in question
++    assert "XXWhat isXX" in question
+     assert isinstance(answer, (int, float))
+ 
+ 
+</pre><h3>Mutant 91</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -6,7 +6,7 @@
+ def test_generate_question():
+     quiz = MathQuiz()
+     question, answer = quiz.generate_question()
+-    assert "What is" in question
++    assert "What is" not in question
+     assert isinstance(answer, (int, float))
+ 
+ 
+</pre><h3>Mutant 123</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -41,7 +41,7 @@
+ @patch('builtins.print')
+ def test_ask_question_correct(mock_print, mock_input):
+     quiz = MathQuiz()
+-    quiz.ask_question("What is 1 + 2?", 3.0)
++    quiz.ask_question("XXWhat is 1 + 2?XX", 3.0)
+     mock_print.assert_called_with("Correct!")
+     assert quiz.score == 1
+ 
+</pre><h3>Mutant 134</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -51,7 +51,7 @@
+ @patch('builtins.print')
+ def test_ask_question_incorrect(mock_print, mock_input):
+     quiz = MathQuiz()
+-    quiz.ask_question("What is 1 + 2?", 3.0)
++    quiz.ask_question("XXWhat is 1 + 2?XX", 3.0)
+     mock_print.assert_called_with("Wrong! The correct answer was 3.0.")
+     assert quiz.score == 0
+ 
+</pre><h3>Mutant 160</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -69,7 +69,7 @@
+ 
+ 
+ # Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
+-@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
++@patch('builtins.input', side_effect=['5', 'XX5XX', '5', '5', '5'])
+ @patch('builtins.print')
+ @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+ def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input):
+</pre><h3>Mutant 162</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -69,7 +69,7 @@
+ 
+ 
+ # Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
+-@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
++@patch('builtins.input', side_effect=['5', '5', '5', 'XX5XX', '5'])
+ @patch('builtins.print')
+ @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+ def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input):
+</pre><h3>Mutant 163</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -69,7 +69,7 @@
+ 
+ 
+ # Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
+-@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
++@patch('builtins.input', side_effect=['5', '5', '5', '5', 'XX5XX'])
+ @patch('builtins.print')
+ @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+ def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input):
+</pre><h3>Mutant 168</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -71,7 +71,7 @@
+ # Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
+ @patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
+ @patch('builtins.print')
+-@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
++@patch.object(MathQuiz, 'generate_question', return_value=("XXWhat is 2 + 2?XX", 4.0))
+ def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input):
+     quiz = MathQuiz()
+     quiz.run_quiz(5)
+</pre><h3>Mutant 194</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -98,7 +98,7 @@
+ @patch('builtins.input', return_value='4')
+ def test_ask_question_does_not_increment_score(mock_input):
+     quiz = MathQuiz()
+-    quiz.ask_question("What is 1 + 2?", 3.0)
++    quiz.ask_question("XXWhat is 1 + 2?XX", 3.0)
+     assert quiz.score == 0
+ 
+ @patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
+</pre><h3>Mutant 206</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -102,7 +102,7 @@
+     assert quiz.score == 0
+ 
+ @patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
+-@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 3?", 5.0))
++@patch.object(MathQuiz, 'generate_question', return_value=("XXWhat is 2 + 3?XX", 5.0))
+ def test_run_quiz_increments_score(mock_generate_question, mock_input):
+     quiz = MathQuiz()
+     quiz.run_quiz(5)
+</pre><h3>Mutant 214</h3><pre>--- ./tests/test_math_quiz.py
++++ ./tests/test_math_quiz.py
+@@ -108,7 +108,7 @@
+     quiz.run_quiz(5)
+     assert quiz.score == 5
+ 
+-@patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
++@patch('builtins.input', side_effect=['XX5XX', '5', '5', '5', '5'])
+ @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+ def test_run_quiz_does_not_increment_score(mock_generate_question, mock_input):
+     quiz = MathQuiz()
+</pre></body></html>

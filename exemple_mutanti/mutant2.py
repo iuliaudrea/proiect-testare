@@ -12,7 +12,7 @@ class MathQuiz:
         if not operation:
             operation = random.choice(operations)
         if operation == '/':
-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
+            correct_answer = math.floor(num1 // num2 * 100) / 100  # Trunchierea la primele două zecimale
             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
         else:
             correct_answer = eval(f"{num1} {operation} {num2}")

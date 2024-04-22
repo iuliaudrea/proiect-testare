@@ -21,7 +21,6 @@ def test_run_quiz_with_invalid_number_of_questions():
         quiz.run_quiz(11)  # Valoare invalidă, mai mare decât 10
     assert "Number of questions must be between 1 and 10." in str(excinfo.value)
 
-
 @patch('builtins.print')
 @patch('builtins.input', return_value='4')
 def test_mocked_input_output(mock_input, mock_print):
@@ -109,11 +108,26 @@ def test_run_quiz_does_not_increment_score(mock_generate_question, mock_input):
     quiz.run_quiz(5)
     assert quiz.score == 0
 
-@patch('builtins.input', side_effect=['4', '4', '4', '5', '5'])
+# Test mutant 1
+@patch('builtins.input', side_effect=['5', '5', '4', '5', '5'])
 @patch('builtins.print')
 @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
 def test_run_quiz_partial_score(mock_generate_question, mock_print, mock_input):
     quiz = MathQuiz()
     quiz.run_quiz(5)
-    assert quiz.score == 3
+    assert quiz.score == 1
     mock_print.assert_any_call("Good job, but you can do better!")
+
+# Test mutant 2
+def test_generate_question():
+    quiz = MathQuiz()
+
+    # Division
+    question, answer = quiz.generate_question(operation='/')
+    operation_string = ' '.join(question.split()[2:5]).rstrip('?')
+    assert answer == eval(operation_string)
+
+    # Else
+    question, answer = quiz.generate_question(operation='+')
+    operation_string = ' '.join(question.split()[2:5]).rstrip('?')
+    assert answer == eval(operation_string)
