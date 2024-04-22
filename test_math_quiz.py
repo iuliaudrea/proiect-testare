@@ -62,7 +62,7 @@ def test_run_quiz(mock_generate_question, mock_print, mock_input):
     mock_print.assert_any_call("Perfect score, well done!")
 
 
-# Verificarea oprirei premature a quiz-ului dacă nu mai pot atinge scorul de trecere
+# Verificarea opririi premature a quiz-ului dacă nu mai pot atinge pragul de trecere
 @patch('builtins.input', side_effect=['5', '5', '5', '5', '5'])
 @patch('builtins.print')
 @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
@@ -72,6 +72,27 @@ def test_run_quiz_premature_stop(mock_generate_question, mock_print, mock_input)
     assert quiz.score == 0
     mock_print.assert_any_call("Can't reach passing score anymore.")
     mock_print.assert_any_call("Quiz completed! Your score: 0/5 (Failed)")
+
+@patch('builtins.input', side_effect=['0.666'])
+@patch('builtins.print')
+def test_division_high_precision(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 6 / 9? (Maximum of the two MSD.)", 0.66)
+    mock_print.assert_called_with("Correct!")
+
+@patch('builtins.input', side_effect=['0.67'])
+@patch('builtins.print')
+def test_division_wrong_precision(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 6 / 9? (Maximum of the two MSD.)", 0.66)
+    mock_print.assert_called_with("Wrong! The correct answer was 0.66.")
+
+@patch('builtins.input', side_effect=['19.001'])
+@patch('builtins.print')
+def test_addition_high_precision(mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 9 + 10?", 19)
+    mock_print.assert_called_with("Correct!")
 
 def test_initial_score():
     quiz = MathQuiz()

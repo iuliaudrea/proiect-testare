@@ -48,7 +48,6 @@ Output-ul quiz-ului este determinat de numărul de răspunsuri corecte și poate
 * Peste jumătate din răspunsuri greșite înainte de finalizarea quiz-ului: Utilizatorul primește un mesaj că nu a trecut quiz-ul și că acesta s-a terminat prematur.
 
 
-
 | Număr întrebări | Număr răspunsuri corecte | Răspuns utilizator per întrebare | Output așteptat                                                                     |
 |-----------------|--------------------------|----------------------------------|-------------------------------------------------------------------------------------|
 | 0               | -                        | -                                | Se ridică un `ValueError` care precizează intervalul acceptat                       |
