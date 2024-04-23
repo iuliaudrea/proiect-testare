@@ -9,6 +9,10 @@ class MathQuiz:
         operations = ['+', '-', '*', '/']
         num1 = random.randint(1, 10)
         num2 = random.randint(1, 10)
+
+        if operation and operation not in operations:
+            raise ValueError(f"Invalid operation '{operation}'. Valid operations are {operations}.")
+
         if not operation:
             operation = random.choice(operations)
         if operation == '/':
@@ -20,6 +24,14 @@ class MathQuiz:
         return question, correct_answer
 
     def ask_question(self, question, correct_answer):
+        # se asteapta ca si correct_answer sa fie un numar valid
+        if not isinstance(correct_answer, (int, float)):
+            raise ValueError(f"Expected a number for correct_answer, got {type(correct_answer).__name__}")
+        if isinstance(correct_answer, float):
+            frac_part = str(correct_answer).split('.')[-1]
+            if len(frac_part) > 2:
+                raise ValueError("correct_answer as a float must not have more than two decimal places.")
+
         while True:
             try:
                 user_answer = float(input(question + " "))
@@ -61,7 +73,7 @@ class MathQuiz:
         else:
             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
 
-        if self.score > 0 and self.score < num_questions and num_wrong_answers < max_wrong_answers:
+        if 0 < self.score < num_questions and num_wrong_answers < max_wrong_answers:
             print("Good job, but you can do better!")
         elif self.score == num_questions:
             print("Perfect score, well done!")

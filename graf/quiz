@@ -1,0 +1,153 @@
+digraph clusterquiz {
+	graph [label=quiz]
+	1 [label="import random
+import math
+def __init__(self):...
+def generate_question(self, operation=None):...
+def ask_question(self, question, correct_answer):...
+def run_quiz(self, num_questions=5):...
+if __name__ == '__main__':
+"]
+	41 [label="quiz = MathQuiz()
+quiz.run_quiz()
+"]
+	"41_calls" [label="MathQuiz
+quiz.run_quiz" shape=box]
+	41 -> "41_calls" [label=calls style=dashed]
+	1 -> 41 [label="__name__ == '__main__'"]
+	subgraph cluster__init__ {
+		graph [label=__init__]
+		3 [label="self.score = 0
+"]
+	}
+	subgraph clustergenerate_question {
+		graph [label=generate_question]
+		6 [label="operations = ['+', '-', '*', '/']
+num1 = random.randint(1, 10)
+num2 = random.randint(1, 10)
+if not operation:
+"]
+		"6_calls" [label="random.randint
+random.randint" shape=box]
+		6 -> "6_calls" [label=calls style=dashed]
+		7 [label="operation = random.choice(operations)
+"]
+		"7_calls" [label="random.choice" shape=box]
+		7 -> "7_calls" [label=calls style=dashed]
+		8 [label="if operation == '/':
+"]
+		9 [label="correct_answer = math.floor(num1 / num2 * 100) / 100
+question = f'What is {num1} {operation} {num2}? (Maximum of the two MSD.)'
+"]
+		"9_calls" [label="math.floor" shape=box]
+		9 -> "9_calls" [label=calls style=dashed]
+		10 [label="return question, correct_answer
+"]
+		9 -> 10 [label=""]
+		8 -> 9 [label="operation == '/'"]
+		11 [label="correct_answer = eval(f'{num1} {operation} {num2}')
+question = f'What is {num1} {operation} {num2}?'
+"]
+		"11_calls" [label=eval shape=box]
+		11 -> "11_calls" [label=calls style=dashed]
+		11 -> 10 [label=""]
+		8 -> 11 [label="(operation != '/')"]
+		7 -> 8 [label=""]
+		6 -> 7 [label="not operation"]
+		6 -> 8 [label="(not not operation)"]
+	}
+	subgraph clusterask_question {
+		graph [label=ask_question]
+		15 [label="while True:
+"]
+		16 [label="user_answer = float(input(question + ' '))
+user_answer = math.floor(user_answer * 100) / 100
+print('Please enter a valid number.')
+"]
+		"16_calls" [label="float
+math.floor
+print" shape=box]
+		16 -> "16_calls" [label=calls style=dashed]
+		17 [label="if user_answer == correct_answer:
+"]
+		18 [label="print('Correct!')
+self.score += 1
+"]
+		"18_calls" [label=print shape=box]
+		18 -> "18_calls" [label=calls style=dashed]
+		17 -> 18 [label="user_answer == correct_answer"]
+		20 [label="print(f'Wrong! The correct answer was {correct_answer}.')
+"]
+		"20_calls" [label=print shape=box]
+		20 -> "20_calls" [label=calls style=dashed]
+		17 -> 20 [label="(user_answer != correct_answer)"]
+		16 -> 17 [label=""]
+		15 -> 16 [label=True]
+		15 -> 17 [label="(not True)"]
+	}
+	subgraph clusterrun_quiz {
+		graph [label=run_quiz]
+		23 [label="self.score = 0
+i = 0
+num_wrong_answers = 0
+max_wrong_answers = num_questions // 2 + 1
+if not 1 <= num_questions <= 10:
+"]
+		25 [label="while i < num_questions:
+"]
+		26 [label="question, correct_answer = self.generate_question()
+self.ask_question(question, correct_answer)
+i += 1
+if self.score < i - num_wrong_answers:
+"]
+		"26_calls" [label="self.generate_question
+self.ask_question" shape=box]
+		26 -> "26_calls" [label=calls style=dashed]
+		28 [label="num_wrong_answers += 1
+if num_wrong_answers >= max_wrong_answers:
+"]
+		30 [label="print(\"Can't reach passing score anymore.\")
+"]
+		"30_calls" [label=print shape=box]
+		30 -> "30_calls" [label=calls style=dashed]
+		27 [label="if self.score >= num_questions / 2:
+"]
+		32 [label="print(f'Quiz completed! Your score: {self.score}/{num_questions} (Passed)')
+"]
+		"32_calls" [label=print shape=box]
+		32 -> "32_calls" [label=calls style=dashed]
+		33 [label="if self.score > 0 and self.score < num_questions and num_wrong_answers < max_wrong_answers:
+"]
+		35 [label="print('Good job, but you can do better!')
+"]
+		"35_calls" [label=print shape=box]
+		35 -> "35_calls" [label=calls style=dashed]
+		33 -> 35 [label="self.score > 0 and self.score < num_questions and num_wrong_answers < max_wrong_answers"]
+		37 [label="if self.score == num_questions:
+"]
+		38 [label="print('Perfect score, well done!')
+"]
+		"38_calls" [label=print shape=box]
+		38 -> "38_calls" [label=calls style=dashed]
+		37 -> 38 [label="self.score == num_questions"]
+		33 -> 37 [label="(not (self.score > 0 and self.score < num_questions and num_wrong_answers <
+    max_wrong_answers))"]
+		32 -> 33 [label=""]
+		27 -> 32 [label="self.score >= num_questions / 2"]
+		34 [label="print(f'Quiz completed! Your score: {self.score}/{num_questions} (Failed)')
+"]
+		"34_calls" [label=print shape=box]
+		34 -> "34_calls" [label=calls style=dashed]
+		34 -> 33 [label=""]
+		27 -> 34 [label="(self.score < num_questions / 2)"]
+		30 -> 27 [label=""]
+		28 -> 30 [label="num_wrong_answers >= max_wrong_answers"]
+		28 -> 25 [label="(num_wrong_answers < max_wrong_answers)"]
+		26 -> 28 [label="self.score < i - num_wrong_answers"]
+		26 -> 25 [label="(self.score >= i - num_wrong_answers)"]
+		25 -> 26 [label="i < num_questions"]
+		25 -> 27 [label="(i >= num_questions)"]
+		23 -> 25 [label="(not not 1 <= num_questions <= 10)"]
+		23 -> 25 [label="not 1 <= num_questions <= 10"]
+	}
+}
