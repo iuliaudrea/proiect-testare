@@ -28,7 +28,8 @@ class MathQuiz:
         if not isinstance(correct_answer, int) and not isinstance(correct_answer, float):
             raise ValueError(f"Expected a number for correct_answer, got {type(correct_answer).__name__}")
 
-        if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
+        if isinstance(correct_answer, float):
+            if len(str(correct_answer).split('.')[-1]) > 2:
                 raise ValueError("correct_answer as a float must not have more than two decimal places.")
 
         ok = False
