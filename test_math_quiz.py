@@ -205,3 +205,56 @@ def test_generate_question():
     question, answer = quiz.generate_question(operation='+')
     operation_string = ' '.join(question.split()[2:5]).rstrip('?')
     assert answer == float("{:.2f}".format(eval(operation_string)))
+
+############# Teste Structurale #############
+
+# correct_answer = 'trei' si user_input nu este relevant
+def test_ask_question_with_string_correct_answer():
+    quiz = MathQuiz()
+    with pytest.raises(ValueError) as excinfo:
+        quiz.ask_question("What is 1 + 2?", 'trei')
+    assert "Expected a number for correct_answer" in str(excinfo.value)
+
+
+# correct_answer = 5 și user_input = 5
+@patch('builtins.input', return_value='5')
+def test_ask_question_with_integer_answers(mock_input):
+    quiz = MathQuiz()
+    try:
+        quiz.ask_question("What is 2 + 3?", 5)
+    except ValueError:
+        pytest.fail("Unexpected ValueError raised")  # Testul va eșua daca se arunca o exceptie
+    assert quiz.score == 1  # Scorul trebuie sa fie 1 daca intrebarea este raspunsa corect
+
+
+# correct_answer = 3.2 si user_input = 'trei'
+def test_ask_question_with_float_correct_answer_and_string_input():
+    quiz = MathQuiz()
+    with patch('builtins.input', return_value='trei'), pytest.raises(ValueError) as excinfo:
+        quiz.ask_question("What is 1 + 2?", 3.2)
+    assert "Please enter a valid number." in str(excinfo.value)
+
+
+# correct_answer = 3.222 si user_input = 3.2
+@patch('builtins.input', return_value='3.2')
+def test_ask_question_with_float_answers(mock_input):
+    quiz = MathQuiz()
+    with pytest.raises(ValueError) as excinfo:
+        quiz.ask_question("What is 1 + 2?", 3.222)
+    assert "correct_answer as a float must not have more than two decimal places" in str(excinfo.value)
+    assert quiz.score == 0  # scorul nu ar trebui să creasca ptr ca rsspunsul corect nu a fost dat
+
+
+# correct_answer = 3.2 si user_input = 7.2
+@patch('builtins.input', return_value='7.2')
+def test_ask_question_with_different_float_inputs(mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 1 + 2?", 3.2)
+    assert quiz.score == 0
+
+# correct_answer = 3.2 si user_input = 3.2
+@patch('builtins.input', return_value='3.2')
+def test_ask_question_with_equal_float_inputs(mock_input):
+    quiz = MathQuiz()
+    quiz.ask_question("What is 1 + 2?", 3.2)
+    assert quiz.score == 1
