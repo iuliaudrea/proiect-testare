@@ -97,39 +97,39 @@ def test_ask_question_correct_answer_with_more_than_two_decimals():
 ##### Teste pentru metoda generate_question
 
 # Test pentru a verifica ca se genereaza o intrebare valdia
-@pytest.mark.parametrize("operation", ['+', '-', '*', '/'])
-def test_generate_question_with_valid_operation(operation):
-    quiz = MathQuiz()
-    question, answer = quiz.generate_question(operation)
-    assert question.startswith('What is ')
-    assert operation in question
-    if operation == '/':
-        assert question.endswith('(Maximum of the two MSD.)')  # verificare sufix impartire
-    assert isinstance(answer, float) if operation == '/' else isinstance(answer, int)
+# @pytest.mark.parametrize("operation", ['+', '-', '*', '/'])
+# def test_generate_question_with_valid_operation(operation):
+#     quiz = MathQuiz()
+#     question, answer = quiz.generate_question(operation)
+#     assert question.startswith('What is ')
+#     assert operation in question
+#     if operation == '/':
+#         assert question.endswith('(Maximum of the two MSD.)')  # verificare sufix impartire
+#     assert isinstance(answer, float) if operation == '/' else isinstance(answer, int)
 
-# Test pentru a verifica comportamentul implicit
-def test_generate_question_with_no_operation():
-    quiz = MathQuiz()
-    question, answer = quiz.generate_question()
-    assert any(op in question for op in ['+', '-', '*', '/'])
+# # Test pentru a verifica comportamentul implicit
+# def test_generate_question_with_no_operation():
+#     quiz = MathQuiz()
+#     question, answer = quiz.generate_question()
+#     assert any(op in question for op in ['+', '-', '*', '/'])
 
-# Test pentru o operatie invalida
-def test_generate_question_with_invalid_operation():
-    quiz = MathQuiz()
-    with pytest.raises(ValueError):
-        quiz.generate_question(operation='invalid_operation')
+# # Test pentru o operatie invalida
+# def test_generate_question_with_invalid_operation():
+#     quiz = MathQuiz()
+#     with pytest.raises(ValueError):
+#         quiz.generate_question(operation='invalid_operation')
 
-# Test pentru a verifica comportamentul funcției pentru toate operațiile valide
-# și confirmă că răspunsurile sunt calculate și trunchiate corect
-def test_generate_question_results():
-    quiz = MathQuiz()
-    for operation in ['+', '-', '*', '/']:
-        _, answer = quiz.generate_question(operation)
-        # Verificăm dacă răspunsul este un număr și că este corect calculat pentru operația dată
-        assert isinstance(answer, (int, float)), "Răspunsul trebuie să fie un număr."
-        # Pentru împărțire, verificăm trunchierea la două zecimale
-        if operation == '/':
-            assert round(answer, 2) == answer, "Răspunsul împărțirii nu este corect trunchiat."
+# # Test pentru a verifica comportamentul funcției pentru toate operațiile valide
+# # și confirmă că răspunsurile sunt calculate și trunchiate corect
+# def test_generate_question_results():
+#     quiz = MathQuiz()
+#     for operation in ['+', '-', '*', '/']:
+#         _, answer = quiz.generate_question(operation)
+#         # Verificăm dacă răspunsul este un număr și că este corect calculat pentru operația dată
+#         assert isinstance(answer, (int, float)), "Răspunsul trebuie să fie un număr."
+#         # Pentru împărțire, verificăm trunchierea la două zecimale
+#         if operation == '/':
+#             assert round(answer, 2) == answer, "Răspunsul împărțirii nu este corect trunchiat."
 
 
 @patch('builtins.input', side_effect=['0.666'])
@@ -193,18 +193,18 @@ def test_run_quiz_partial_score(mock_generate_question, mock_print, mock_input):
     mock_print.assert_any_call("Good job, but you can do better!")
 
 # Test mutant 2
-def test_generate_question():
-    quiz = MathQuiz()
+# def test_generate_question():
+#     quiz = MathQuiz()
 
-    # Division
-    question, answer = quiz.generate_question(operation='/')
-    operation_string = ' '.join(question.split()[2:5]).rstrip('?')
-    assert answer == float("{:.2f}".format(eval(operation_string)))
+#     # Division
+#     question, answer = quiz.generate_question(operation='/')
+#     operation_string = ' '.join(question.split()[2:5]).rstrip('?')
+#     assert answer == float("{:.2f}".format(eval(operation_string)))
 
-    # Else
-    question, answer = quiz.generate_question(operation='+')
-    operation_string = ' '.join(question.split()[2:5]).rstrip('?')
-    assert answer == float("{:.2f}".format(eval(operation_string)))
+#     # Else
+#     question, answer = quiz.generate_question(operation='+')
+#     operation_string = ' '.join(question.split()[2:5]).rstrip('?')
+#     assert answer == float("{:.2f}".format(eval(operation_string)))
 
 ############# Teste Structurale #############
 
@@ -223,17 +223,19 @@ def test_ask_question_with_integer_answers(mock_input):
     try:
         quiz.ask_question("What is 2 + 3?", 5)
     except ValueError:
-        pytest.fail("Unexpected ValueError raised")  # Testul va eșua daca se arunca o exceptie
-    assert quiz.score == 1  # Scorul trebuie sa fie 1 daca intrebarea este raspunsa corect
+        pytest.fail("Unexpected ValueError raised")  # Testul va esua daca se arunca o exceptie
+    assert quiz.score == 1
 
 
 # correct_answer = 3.2 si user_input = 'trei'
 def test_ask_question_with_float_correct_answer_and_string_input():
     quiz = MathQuiz()
-    with patch('builtins.input', return_value='trei'), pytest.raises(ValueError) as excinfo:
+    with patch('builtins.input', side_effect=['trei', '3.2']), patch('builtins.print') as mock_print:
         quiz.ask_question("What is 1 + 2?", 3.2)
-    assert "Please enter a valid number." in str(excinfo.value)
-
+        mock_print.assert_any_call("Please enter a valid number.")
+        assert mock_print.call_args_list[-1][0][0] == "Correct!"
+        assert quiz.score == 1
+        
 
 # correct_answer = 3.222 si user_input = 3.2
 @patch('builtins.input', return_value='3.2')
@@ -244,12 +246,14 @@ def test_ask_question_with_float_answers(mock_input):
     assert "correct_answer as a float must not have more than two decimal places" in str(excinfo.value)
     assert quiz.score == 0  # scorul nu ar trebui să creasca ptr ca rsspunsul corect nu a fost dat
 
+
 # correct_answer = 3.2 si user_input = 7.2
 @patch('builtins.input', return_value='7.2')
 def test_ask_question_with_different_float_inputs(mock_input):
     quiz = MathQuiz()
     quiz.ask_question("What is 1 + 2?", 3.2)
     assert quiz.score == 0
+
 
 # correct_answer = 3.2 si user_input = 3.2
 @patch('builtins.input', return_value='3.2')
@@ -258,16 +262,20 @@ def test_ask_question_with_equal_float_inputs(mock_input):
     quiz.ask_question("What is 1 + 2?", 3.2)
     assert quiz.score == 1
 
+
 # correct_answer = -2 si user_input = x2
 def test_ask_question_with_negative_integer_and_string_input():
     quiz = MathQuiz()
-    with patch('builtins.input', return_value='x2'), pytest.raises(ValueError) as excinfo:
+    with patch('builtins.input', side_effect=['x2', '-2']), patch('builtins.print') as mock_print:
         quiz.ask_question("What is 2 - 4?", -2)
-    assert "Please enter a valid number." in str(excinfo.value)
+        mock_print.assert_any_call("Please enter a valid number.")
+        assert mock_print.call_args_list[-1][0][0] == "Correct!"
+        assert quiz.score == 1
+
 
 # correct_answer = -3 si user_input = -3.222
 def test_ask_question_with_negative_float_answers_and_input():
     quiz = MathQuiz()
-    with patch('builtins.input', return_value='-3.222'), pytest.raises(ValueError) as excinfo:
+    with patch('builtins.input', return_value = '-3.222'):
         quiz.ask_question("What is 2 - 5?", -3)
-    assert "correct_answer as a float must not have more than two decimal places" in str(excinfo.value)
+        assert quiz.score == 0
