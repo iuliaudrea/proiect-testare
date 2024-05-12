@@ -2,6 +2,7 @@
 
 ## Link-uri
 [Documentație](https://docs.google.com/document/d/1zmPiF8qrNKbFWRpT8MVxHXr3_89se_RZoOgbxd_amKo/edit?usp=sharing)
+
 [Prezentare](https://unibucro0-my.sharepoint.com/:p:/g/personal/tudor-andrei_farcasanu_s_unibuc_ro/EXSvNtXnMlNJqxCUQ0lwrCQBnSG73GQkG3sYARVlKkzJsw?e=o3mUIg)
 
 ## Demo
