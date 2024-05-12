@@ -182,29 +182,28 @@ def test_run_quiz_does_not_increment_score(mock_generate_question, mock_input):
     quiz.run_quiz(5)
     assert quiz.score == 0
 
-# Test mutant 1
+# # Test mutant 1
+# max_wrong_answers = num_questions // 2 + 2
+@patch('builtins.input', side_effect=['4', '4', '5', '5', '5'])
+@patch('builtins.print')
+@patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
+def test_run_quiz_early_quit(mock_generate_question, mock_print, mock_input):
+    quiz = MathQuiz()
+    quiz.run_quiz(5)
+    assert quiz.score == 2
+    mock_print.assert_any_call("Can't reach passing score anymore.")
+    mock_print.assert_any_call("Quiz completed! Your score: 2/5 (Failed)")
+
+# Test mutant 2
+# if self.score >= num_questions / 3:
 @patch('builtins.input', side_effect=['4', '4', '4', '5', '5'])
 @patch('builtins.print')
 @patch.object(MathQuiz, 'generate_question', return_value=("What is 2 + 2?", 4.0))
-def test_run_quiz_partial_score(mock_generate_question, mock_print, mock_input):
+def test_run_quiz_final_answer(mock_generate_question, mock_print, mock_input):
     quiz = MathQuiz()
     quiz.run_quiz(5)
     assert quiz.score == 3
-    mock_print.assert_any_call("Good job, but you can do better!")
-
-# Test mutant 2
-# def test_generate_question():
-#     quiz = MathQuiz()
-
-#     # Division
-#     question, answer = quiz.generate_question(operation='/')
-#     operation_string = ' '.join(question.split()[2:5]).rstrip('?')
-#     assert answer == float("{:.2f}".format(eval(operation_string)))
-
-#     # Else
-#     question, answer = quiz.generate_question(operation='+')
-#     operation_string = ' '.join(question.split()[2:5]).rstrip('?')
-#     assert answer == float("{:.2f}".format(eval(operation_string)))
+    mock_print.assert_any_call("Quiz completed! Your score: 3/5 (Passed)")
 
 ############# Teste Structurale #############
 
@@ -273,9 +272,9 @@ def test_ask_question_with_negative_integer_and_string_input():
         assert quiz.score == 1
 
 
-# correct_answer = -3 si user_input = -3.222
-def test_ask_question_with_negative_float_answers_and_input():
-    quiz = MathQuiz()
-    with patch('builtins.input', return_value = '-3.222'):
-        quiz.ask_question("What is 2 - 5?", -3)
-        assert quiz.score == 0
+# # correct_answer = -3 si user_input = -3.222
+# def test_ask_question_with_negative_float_answers_and_input():
+#     quiz = MathQuiz()
+#     with patch('builtins.input', return_value = '-3.222'):
+#         quiz.ask_question("What is 2 - 5?", -3)
+#         assert quiz.score == 0

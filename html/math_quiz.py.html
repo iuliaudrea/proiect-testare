@@ -1,16 +1,5 @@
-<html><body><h1>./math_quiz.py</h1>Killed 64 out of 87 mutants<h2>Timeouts</h2>Mutants that made the test suite take a lot longer so the tests were killed.<h3>Mutant 34</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -23,7 +23,7 @@
-         while True:
-             try:
-                 user_answer = float(input(question + " "))
--                break
-+                continue
-             except ValueError:
-                 print("Please enter a valid number.")
- 
-</pre><h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 3</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+<html><body><h1>.\math_quiz.py</h1>Killed 69 out of 123 mutants<h2>Survived</h2>Survived mutation testing. These mutants show holes in your test suite.<h3>Mutant 3</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -6,7 +6,7 @@
          self.score = 0
  
@@ -19,9 +8,9 @@
 +        operations = ['XX+XX', '-', '*', '/']
          num1 = random.randint(1, 10)
          num2 = random.randint(1, 10)
-         if not operation:
-</pre><h3>Mutant 4</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+ 
+</pre><h3>Mutant 4</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -6,7 +6,7 @@
          self.score = 0
  
@@ -30,31 +19,9 @@
 +        operations = ['+', 'XX-XX', '*', '/']
          num1 = random.randint(1, 10)
          num2 = random.randint(1, 10)
-         if not operation:
-</pre><h3>Mutant 5</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -6,7 +6,7 @@
-         self.score = 0
  
-     def generate_question(self, operation=None):
--        operations = ['+', '-', '*', '/']
-+        operations = ['+', '-', 'XX*XX', '/']
-         num1 = random.randint(1, 10)
-         num2 = random.randint(1, 10)
-         if not operation:
-</pre><h3>Mutant 6</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -6,7 +6,7 @@
-         self.score = 0
- 
-     def generate_question(self, operation=None):
--        operations = ['+', '-', '*', '/']
-+        operations = ['+', '-', '*', 'XX/XX']
-         num1 = random.randint(1, 10)
-         num2 = random.randint(1, 10)
-         if not operation:
-</pre><h3>Mutant 8</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+</pre><h3>Mutant 8</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -7,7 +7,7 @@
  
      def generate_question(self, operation=None):
@@ -62,34 +29,67 @@
 -        num1 = random.randint(1, 10)
 +        num1 = random.randint(2, 10)
          num2 = random.randint(1, 10)
-         if not operation:
-             operation = random.choice(operations)
-</pre><h3>Mutant 11</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+ 
+         if operation and operation not in operations:
+</pre><h3>Mutant 9</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -7,7 +7,7 @@
+ 
+     def generate_question(self, operation=None):
+         operations = ['+', '-', '*', '/']
+-        num1 = random.randint(1, 10)
++        num1 = random.randint(1, 11)
+         num2 = random.randint(1, 10)
+ 
+         if operation and operation not in operations:
+</pre><h3>Mutant 11</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -8,7 +8,7 @@
      def generate_question(self, operation=None):
          operations = ['+', '-', '*', '/']
          num1 = random.randint(1, 10)
 -        num2 = random.randint(1, 10)
 +        num2 = random.randint(2, 10)
-         if not operation:
-             operation = random.choice(operations)
-         if operation == '/':
-</pre><h3>Mutant 12</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+ 
+         if operation and operation not in operations:
+             raise ValueError(f"Invalid operation '{operation}'. Valid operations are {operations}.")
+</pre><h3>Mutant 12</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -8,7 +8,7 @@
      def generate_question(self, operation=None):
          operations = ['+', '-', '*', '/']
          num1 = random.randint(1, 10)
 -        num2 = random.randint(1, 10)
 +        num2 = random.randint(1, 11)
+ 
+         if operation and operation not in operations:
+             raise ValueError(f"Invalid operation '{operation}'. Valid operations are {operations}.")
+</pre><h3>Mutant 14</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -10,7 +10,7 @@
+         num1 = random.randint(1, 10)
+         num2 = random.randint(1, 10)
+ 
+-        if operation and operation not in operations:
++        if operation and operation  in operations:
+             raise ValueError(f"Invalid operation '{operation}'. Valid operations are {operations}.")
+ 
          if not operation:
-             operation = random.choice(operations)
-         if operation == '/':
-</pre><h3>Mutant 16</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+</pre><h3>Mutant 16</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -11,7 +11,7 @@
          num2 = random.randint(1, 10)
+ 
+         if operation and operation not in operations:
+-            raise ValueError(f"Invalid operation '{operation}'. Valid operations are {operations}.")
++            raise ValueError(f"XXInvalid operation '{operation}'. Valid operations are {operations}.XX")
+ 
+         if not operation:
+             operation = random.choice(operations)
+</pre><h3>Mutant 19</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -15,7 +15,7 @@
+ 
          if not operation:
              operation = random.choice(operations)
 -        if operation == '/':
@@ -97,10 +97,10 @@
              correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
              question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
          else:
-</pre><h3>Mutant 17</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -11,7 +11,7 @@
-         num2 = random.randint(1, 10)
+</pre><h3>Mutant 20</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -15,7 +15,7 @@
+ 
          if not operation:
              operation = random.choice(operations)
 -        if operation == '/':
@@ -108,9 +108,108 @@
              correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
              question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
          else:
-</pre><h3>Mutant 27</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -15,7 +15,7 @@
+</pre><h3>Mutant 21</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -16,7 +16,7 @@
+         if not operation:
+             operation = random.choice(operations)
+         if operation == '/':
+-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
++            correct_answer = math.floor(num1 * num2 * 100) / 100  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+</pre><h3>Mutant 22</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -16,7 +16,7 @@
+         if not operation:
+             operation = random.choice(operations)
+         if operation == '/':
+-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
++            correct_answer = math.floor(num1 / num2 / 100) / 100  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+</pre><h3>Mutant 23</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -16,7 +16,7 @@
+         if not operation:
+             operation = random.choice(operations)
+         if operation == '/':
+-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
++            correct_answer = math.floor(num1 / num2 * 101) / 100  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+</pre><h3>Mutant 24</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -16,7 +16,7 @@
+         if not operation:
+             operation = random.choice(operations)
+         if operation == '/':
+-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
++            correct_answer = math.floor(num1 / num2 * 100) * 100  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+</pre><h3>Mutant 25</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -16,7 +16,7 @@
+         if not operation:
+             operation = random.choice(operations)
+         if operation == '/':
+-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
++            correct_answer = math.floor(num1 / num2 * 100) / 101  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+</pre><h3>Mutant 26</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -16,7 +16,7 @@
+         if not operation:
+             operation = random.choice(operations)
+         if operation == '/':
+-            correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
++            correct_answer = None  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+</pre><h3>Mutant 27</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -17,7 +17,7 @@
+             operation = random.choice(operations)
+         if operation == '/':
+             correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
+-            question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
++            question = f"XXWhat is {num1} {operation} {num2}? (Maximum of the two MSD.)XX"
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+             question = f"What is {num1} {operation} {num2}?"
+</pre><h3>Mutant 28</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -17,7 +17,7 @@
+             operation = random.choice(operations)
+         if operation == '/':
+             correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
+-            question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
++            question = None
+         else:
+             correct_answer = eval(f"{num1} {operation} {num2}")
+             question = f"What is {num1} {operation} {num2}?"
+</pre><h3>Mutant 29</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -19,7 +19,7 @@
+             correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
+             question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
+         else:
+-            correct_answer = eval(f"{num1} {operation} {num2}")
++            correct_answer = eval(f"XX{num1} {operation} {num2}XX")
+             question = f"What is {num1} {operation} {num2}?"
+         return question, correct_answer
+ 
+</pre><h3>Mutant 30</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -19,7 +19,7 @@
              correct_answer = math.floor(num1 / num2 * 100) / 100  # Trunchierea la primele două zecimale
              question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
          else:
@@ -119,9 +218,9 @@
              question = f"What is {num1} {operation} {num2}?"
          return question, correct_answer
  
-</pre><h3>Mutant 28</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -16,7 +16,7 @@
+</pre><h3>Mutant 31</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -20,7 +20,7 @@
              question = f"What is {num1} {operation} {num2}? (Maximum of the two MSD.)"
          else:
              correct_answer = eval(f"{num1} {operation} {num2}")
@@ -130,20 +229,108 @@
          return question, correct_answer
  
      def ask_question(self, question, correct_answer):
-</pre><h3>Mutant 32</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -22,7 +22,7 @@
+</pre><h3>Mutant 36</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -26,7 +26,7 @@
      def ask_question(self, question, correct_answer):
-         while True:
-             try:
--                user_answer = float(input(question + " "))
-+                user_answer = float(input(question + "XX XX"))
-                 break
-             except ValueError:
-                 print("Please enter a valid number.")
-</pre><h3>Mutant 42</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
+         # se asteapta ca si correct_answer sa fie un numar valid
+         if not isinstance(correct_answer, int) and not isinstance(correct_answer, float):
+-            raise ValueError(f"Expected a number for correct_answer, got {type(correct_answer).__name__}")
++            raise ValueError(f"XXExpected a number for correct_answer, got {type(correct_answer).__name__}XX")
+ 
+         if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
+                 raise ValueError("correct_answer as a float must not have more than two decimal places.")
+</pre><h3>Mutant 38</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -28,7 +28,7 @@
+         if not isinstance(correct_answer, int) and not isinstance(correct_answer, float):
+             raise ValueError(f"Expected a number for correct_answer, got {type(correct_answer).__name__}")
+ 
+-        if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
++        if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[+1]) > 2:
+                 raise ValueError("correct_answer as a float must not have more than two decimal places.")
+ 
+         ok = False
+</pre><h3>Mutant 43</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -29,7 +29,7 @@
+             raise ValueError(f"Expected a number for correct_answer, got {type(correct_answer).__name__}")
+ 
+         if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
+-                raise ValueError("correct_answer as a float must not have more than two decimal places.")
++                raise ValueError("XXcorrect_answer as a float must not have more than two decimal places.XX")
+ 
+         ok = False
+         while not ok:
+</pre><h3>Mutant 45</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -31,7 +31,7 @@
+         if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
+                 raise ValueError("correct_answer as a float must not have more than two decimal places.")
+ 
+-        ok = False
++        ok = None
+         while not ok:
+             user_input = input(question + " ")
+             if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
+</pre><h3>Mutant 48</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
 @@ -33,7 +33,7 @@
+ 
+         ok = False
+         while not ok:
+-            user_input = input(question + " ")
++            user_input = input(question + "XX XX")
+             if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
+                 user_answer = float(user_input)
+                 user_answer = math.floor(user_answer * 100) / 100
+</pre><h3>Mutant 51</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -34,7 +34,7 @@
+         ok = False
+         while not ok:
+             user_input = input(question + " ")
+-            if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
++            if (user_input[1:].replace('XX.XX', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
+                 user_answer = float(user_input)
+                 user_answer = math.floor(user_answer * 100) / 100
+                 ok = True
+</pre><h3>Mutant 52</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -34,7 +34,7 @@
+         ok = False
+         while not ok:
+             user_input = input(question + " ")
+-            if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
++            if (user_input[1:].replace('.', 'XXXX', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
+                 user_answer = float(user_input)
+                 user_answer = math.floor(user_answer * 100) / 100
+                 ok = True
+</pre><h3>Mutant 53</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -34,7 +34,7 @@
+         ok = False
+         while not ok:
+             user_input = input(question + " ")
+-            if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
++            if (user_input[1:].replace('.', '', 2).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
+                 user_answer = float(user_input)
+                 user_answer = math.floor(user_answer * 100) / 100
+                 ok = True
+</pre><h3>Mutant 60</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -34,7 +34,7 @@
+         ok = False
+         while not ok:
+             user_input = input(question + " ")
+-            if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
++            if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 2).isdigit()):
+                 user_answer = float(user_input)
+                 user_answer = math.floor(user_answer * 100) / 100
+                 ok = True
+</pre><h3>Mutant 77</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -47,7 +47,7 @@
          else:
              print(f"Wrong! The correct answer was {correct_answer}.")
  
@@ -152,9 +339,9 @@
          # resetam scorul la inceputul fiecarui quiz, intruct se poate rula de mai multe ori pentru aceeasi instanta a clasei
          self.score = 0
          i = 0
-</pre><h3>Mutant 47</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -37,7 +37,7 @@
+</pre><h3>Mutant 82</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -51,7 +51,7 @@
          # resetam scorul la inceputul fiecarui quiz, intruct se poate rula de mai multe ori pentru aceeasi instanta a clasei
          self.score = 0
          i = 0
@@ -163,9 +350,9 @@
          max_wrong_answers = num_questions // 2 + 1
  
          if not 1 <= num_questions <= 10:
-</pre><h3>Mutant 49</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -38,7 +38,7 @@
+</pre><h3>Mutant 84</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -52,7 +52,7 @@
          self.score = 0
          i = 0
          num_wrong_answers = 0
@@ -174,9 +361,9 @@
  
          if not 1 <= num_questions <= 10:
              raise ValueError("Number of questions must be between 1 and 10.")
-</pre><h3>Mutant 50</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -38,7 +38,7 @@
+</pre><h3>Mutant 85</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -52,7 +52,7 @@
          self.score = 0
          i = 0
          num_wrong_answers = 0
@@ -185,9 +372,42 @@
  
          if not 1 <= num_questions <= 10:
              raise ValueError("Number of questions must be between 1 and 10.")
-</pre><h3>Mutant 56</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -40,7 +40,7 @@
+</pre><h3>Mutant 86</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -52,7 +52,7 @@
+         self.score = 0
+         i = 0
+         num_wrong_answers = 0
+-        max_wrong_answers = num_questions // 2 + 1
++        max_wrong_answers = num_questions // 2 - 1
+ 
+         if not 1 <= num_questions <= 10:
+             raise ValueError("Number of questions must be between 1 and 10.")
+</pre><h3>Mutant 87</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -52,7 +52,7 @@
+         self.score = 0
+         i = 0
+         num_wrong_answers = 0
+-        max_wrong_answers = num_questions // 2 + 1
++        max_wrong_answers = num_questions // 2 + 2
+ 
+         if not 1 <= num_questions <= 10:
+             raise ValueError("Number of questions must be between 1 and 10.")
+</pre><h3>Mutant 90</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -54,7 +54,7 @@
+         num_wrong_answers = 0
+         max_wrong_answers = num_questions // 2 + 1
+ 
+-        if not 1 <= num_questions <= 10:
++        if not 2 <= num_questions <= 10:
+             raise ValueError("Number of questions must be between 1 and 10.")
+ 
+         while i < num_questions:
+</pre><h3>Mutant 91</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -54,7 +54,7 @@
          num_wrong_answers = 0
          max_wrong_answers = num_questions // 2 + 1
  
@@ -196,9 +416,64 @@
              raise ValueError("Number of questions must be between 1 and 10.")
  
          while i < num_questions:
-</pre><h3>Mutant 70</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -50,7 +50,7 @@
+</pre><h3>Mutant 92</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -54,7 +54,7 @@
+         num_wrong_answers = 0
+         max_wrong_answers = num_questions // 2 + 1
+ 
+-        if not 1 <= num_questions <= 10:
++        if not 1 <= num_questions < 10:
+             raise ValueError("Number of questions must be between 1 and 10.")
+ 
+         while i < num_questions:
+</pre><h3>Mutant 94</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -55,7 +55,7 @@
+         max_wrong_answers = num_questions // 2 + 1
+ 
+         if not 1 <= num_questions <= 10:
+-            raise ValueError("Number of questions must be between 1 and 10.")
++            raise ValueError("XXNumber of questions must be between 1 and 10.XX")
+ 
+         while i < num_questions:
+             question, correct_answer = self.generate_question()
+</pre><h3>Mutant 100</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -62,7 +62,7 @@
+             self.ask_question(question, correct_answer)
+             i += 1
+             # Verificăm dacă jucătorul a răspuns suficient de multe întrebări greșit
+-            if self.score < (i - num_wrong_answers):
++            if self.score <= (i - num_wrong_answers):
+                 num_wrong_answers += 1
+                 if num_wrong_answers >= max_wrong_answers:
+                     print("Can't reach passing score anymore.")
+</pre><h3>Mutant 101</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -62,7 +62,7 @@
+             self.ask_question(question, correct_answer)
+             i += 1
+             # Verificăm dacă jucătorul a răspuns suficient de multe întrebări greșit
+-            if self.score < (i - num_wrong_answers):
++            if self.score < (i + num_wrong_answers):
+                 num_wrong_answers += 1
+                 if num_wrong_answers >= max_wrong_answers:
+                     print("Can't reach passing score anymore.")
+</pre><h3>Mutant 104</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -63,7 +63,7 @@
+             i += 1
+             # Verificăm dacă jucătorul a răspuns suficient de multe întrebări greșit
+             if self.score < (i - num_wrong_answers):
+-                num_wrong_answers += 1
++                num_wrong_answers += 2
+                 if num_wrong_answers >= max_wrong_answers:
+                     print("Can't reach passing score anymore.")
+                     break
+</pre><h3>Mutant 105</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -64,7 +64,7 @@
              # Verificăm dacă jucătorul a răspuns suficient de multe întrebări greșit
              if self.score < (i - num_wrong_answers):
                  num_wrong_answers += 1
@@ -207,9 +482,9 @@
                      print("Can't reach passing score anymore.")
                      break
  
-</pre><h3>Mutant 72</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -52,7 +52,7 @@
+</pre><h3>Mutant 107</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -66,7 +66,7 @@
                  num_wrong_answers += 1
                  if num_wrong_answers >= max_wrong_answers:
                      print("Can't reach passing score anymore.")
@@ -218,20 +493,75 @@
  
          # Un `if-else` lanț pentru a oferi feedback bazat pe scorul final.
          if self.score >= num_questions / 2:
-</pre><h3>Mutant 78</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -60,7 +60,7 @@
+</pre><h3>Mutant 108</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -69,7 +69,7 @@
+                     break
+ 
+         # Un `if-else` lanț pentru a oferi feedback bazat pe scorul final.
+-        if self.score >= num_questions / 2:
++        if self.score > num_questions / 2:
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Passed)")
+         else:
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
+</pre><h3>Mutant 110</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -69,7 +69,7 @@
+                     break
+ 
+         # Un `if-else` lanț pentru a oferi feedback bazat pe scorul final.
+-        if self.score >= num_questions / 2:
++        if self.score >= num_questions / 3:
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Passed)")
+         else:
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
+</pre><h3>Mutant 113</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -74,7 +74,7 @@
          else:
              print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
  
--        if self.score > 0 and self.score < num_questions:
-+        if self.score >= 0 and self.score < num_questions:
+-        if 0 < self.score < num_questions and num_wrong_answers < max_wrong_answers:
++        if 1 < self.score < num_questions and num_wrong_answers < max_wrong_answers:
              print("Good job, but you can do better!")
          elif self.score == num_questions:
              print("Perfect score, well done!")
-</pre><h3>Mutant 85</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -66,7 +66,7 @@
+</pre><h3>Mutant 114</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -74,7 +74,7 @@
+         else:
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
+ 
+-        if 0 < self.score < num_questions and num_wrong_answers < max_wrong_answers:
++        if 0 <= self.score < num_questions and num_wrong_answers < max_wrong_answers:
+             print("Good job, but you can do better!")
+         elif self.score == num_questions:
+             print("Perfect score, well done!")
+</pre><h3>Mutant 116</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -74,7 +74,7 @@
+         else:
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
+ 
+-        if 0 < self.score < num_questions and num_wrong_answers < max_wrong_answers:
++        if 0 < self.score < num_questions and num_wrong_answers <= max_wrong_answers:
+             print("Good job, but you can do better!")
+         elif self.score == num_questions:
+             print("Perfect score, well done!")
+</pre><h3>Mutant 118</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -75,7 +75,7 @@
+             print(f"Quiz completed! Your score: {self.score}/{num_questions} (Failed)")
+ 
+         if 0 < self.score < num_questions and num_wrong_answers < max_wrong_answers:
+-            print("Good job, but you can do better!")
++            print("XXGood job, but you can do better!XX")
+         elif self.score == num_questions:
+             print("Perfect score, well done!")
+ 
+</pre><h3>Mutant 121</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -80,7 +80,7 @@
              print("Perfect score, well done!")
  
  
@@ -240,9 +570,20 @@
      # Example usage
      quiz = MathQuiz()
      quiz.run_quiz()
-</pre><h3>Mutant 87</h3><pre>--- ./math_quiz.py
-+++ ./math_quiz.py
-@@ -68,6 +68,6 @@
+</pre><h3>Mutant 122</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -80,7 +80,7 @@
+             print("Perfect score, well done!")
+ 
+ 
+-if __name__ == "__main__":
++if __name__ == "XX__main__XX":
+     # Example usage
+     quiz = MathQuiz()
+     quiz.run_quiz()
+</pre><h3>Mutant 123</h3><pre>--- .\math_quiz.py
++++ .\math_quiz.py
+@@ -82,6 +82,6 @@
  
  if __name__ == "__main__":
      # Example usage
