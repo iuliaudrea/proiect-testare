@@ -34,7 +34,7 @@ class MathQuiz:
         ok = False
         while not ok:
             user_input = input(question + " ")
-            if user_input.replace('.', '', 1).isdigit():
+            if (user_input[1:].replace('.', '', 1).isdigit() and user_input[0] == '-') or (user_input.replace('.', '', 1).isdigit()):
                 user_answer = float(user_input)
                 user_answer = math.floor(user_answer * 100) / 100
                 ok = True
