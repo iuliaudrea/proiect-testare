@@ -244,7 +244,6 @@ def test_ask_question_with_float_answers(mock_input):
     assert "correct_answer as a float must not have more than two decimal places" in str(excinfo.value)
     assert quiz.score == 0  # scorul nu ar trebui să creasca ptr ca rsspunsul corect nu a fost dat
 
-
 # correct_answer = 3.2 si user_input = 7.2
 @patch('builtins.input', return_value='7.2')
 def test_ask_question_with_different_float_inputs(mock_input):
@@ -258,3 +257,17 @@ def test_ask_question_with_equal_float_inputs(mock_input):
     quiz = MathQuiz()
     quiz.ask_question("What is 1 + 2?", 3.2)
     assert quiz.score == 1
+
+# correct_answer = -2 si user_input = x2
+def test_ask_question_with_negative_integer_and_string_input():
+    quiz = MathQuiz()
+    with patch('builtins.input', return_value='x2'), pytest.raises(ValueError) as excinfo:
+        quiz.ask_question("What is 2 - 4?", -2)
+    assert "Please enter a valid number." in str(excinfo.value)
+
+# correct_answer = -3 si user_input = -3.222
+def test_ask_question_with_negative_float_answers_and_input():
+    quiz = MathQuiz()
+    with patch('builtins.input', return_value='-3.222'), pytest.raises(ValueError) as excinfo:
+        quiz.ask_question("What is 2 - 5?", -3)
+    assert "correct_answer as a float must not have more than two decimal places" in str(excinfo.value)
