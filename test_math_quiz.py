@@ -273,8 +273,8 @@ def test_ask_question_with_negative_integer_and_string_input():
 
 
 # # correct_answer = -3 si user_input = -3.222
-# def test_ask_question_with_negative_float_answers_and_input():
-#     quiz = MathQuiz()
-#     with patch('builtins.input', return_value = '-3.222'):
-#         quiz.ask_question("What is 2 - 5?", -3)
-#         assert quiz.score == 0
+def test_ask_question_with_negative_float_answers_and_input():
+    quiz = MathQuiz()
+    with patch('builtins.input', return_value = '-3.222'):
+        quiz.ask_question("What is 2 - 5?", -3)
+        assert quiz.score == 0
