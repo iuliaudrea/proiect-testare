@@ -31,12 +31,13 @@ class MathQuiz:
         if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
                 raise ValueError("correct_answer as a float must not have more than two decimal places.")
 
-        while True:
+        ok = False
+        while not ok:
             user_input = input(question + " ")
             if user_input.replace('.', '', 1).isdigit():
                 user_answer = float(user_input)
                 user_answer = math.floor(user_answer * 100) / 100
-                break
+                ok = True
             else:
                 print("Please enter a valid number.")
 
