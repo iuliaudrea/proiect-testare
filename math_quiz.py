@@ -25,19 +25,19 @@ class MathQuiz:
 
     def ask_question(self, question, correct_answer):
         # se asteapta ca si correct_answer sa fie un numar valid
-        if not isinstance(correct_answer, (int, float)):
+        if not isinstance(correct_answer, int) and not isinstance(correct_answer, float):
             raise ValueError(f"Expected a number for correct_answer, got {type(correct_answer).__name__}")
-        if isinstance(correct_answer, float):
-            frac_part = str(correct_answer).split('.')[-1]
-            if len(frac_part) > 2:
+
+        if isinstance(correct_answer, float) and len(str(correct_answer).split('.')[-1]) > 2:
                 raise ValueError("correct_answer as a float must not have more than two decimal places.")
 
         while True:
-            try:
-                user_answer = float(input(question + " "))
+            user_input = input(question + " ")
+            if user_input.replace('.', '', 1).isdigit():
+                user_answer = float(user_input)
                 user_answer = math.floor(user_answer * 100) / 100
                 break
-            except ValueError:
+            else:
                 print("Please enter a valid number.")
 
         if user_answer == correct_answer:
