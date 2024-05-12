@@ -1,5 +1,9 @@
 # Clasa _MathQuiz_
 
+## Demo
+[Demo](https://unibucro0-my.sharepoint.com/:v:/g/personal/tudor-andrei_farcasanu_s_unibuc_ro/ESe-b9YEyWZDjxuBsV5q2h8Bs0C5I22O4RCMBCoW5vQadA?e=Krb1aw&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+[Demo teste](https://unibucro0-my.sharepoint.com/:v:/g/personal/tudor-andrei_farcasanu_s_unibuc_ro/EcRg8cRKoFVNhK2jeoxbEAkBCXCR1HdT0rj4M205Nvtx_w?e=jGJmn3&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+
 ## Descriere:
 Clasa `MathQuiz` implementează un quiz de matematică interactiv care generează întrebări aleatorii cu operații de bază (adunare, scădere, înmulțire, împărțire) și evaluează răspunsurile utilizatorului, oferind feedback și înregistrând scorul. Quiz-ul poate fi trecut cu minim jumătate din răspunsuri corecte, iar în caz contrat este picat. Dacă pe parcursul quiz-ului utilizatorul depășește numărul maxim de întrebări greșite, quiz-ul se oprește.
 
